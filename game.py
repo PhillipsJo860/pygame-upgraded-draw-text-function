@@ -17,7 +17,10 @@ def handle_events():
                 return False
     return True
 
-# text_font = pygame.font.Font(None, 30)
+def font(font_name, font_size=30):
+    text_font = pygame.font.Font(font_name, font_size)
+    return text_font
+
 
 def draw_line(screen, color, start_pos, end_pos, thickness):
     pygame.draw.line(screen, color, start_pos, end_pos, thickness)
@@ -28,26 +31,56 @@ def draw_rect(screen, rect, color, thickness):
 def draw_circle(screen, center, radius, color, thickness):
     pygame.draw.circle(screen, color, center, radius, thickness)
 
-def draw_text(screen, text, font, text_col, x, y):
-    img = font.render(text, True, text_col)
-    screen.blit(img, (x, y))
+def draw_text(screen, text, font, text_col, position, anti_aliased=True, italic=False, bold=False):
+    img = font.render(text, anti_aliased, text_col)
+    screen.blit(img, position)
+    font.set_italic(italic)
+    font.set_bold(bold)
 
+def show_name(first_name, last_name, middle_name=None):
+    if middle_name:
+        output = f'{first_name} {middle_name} {last_name}'
+    else:
+        output = f'{first_name} {last_name}'
+    return output
 
 
 def main():
     screen = init_game()
     clock = pygame.time.Clock()
-    running = True
 
-    text_font = pygame.font.SysFont('Arial', 30)
+    font_name = 'Sixtyfour.ttf'
+    font_color1 = config.COLOR_RED
+    font_color2 = config.COLOR_DARKCYAN
+    font_color3 = config.COLOR_OLIVEDRAB
+    font_color4 = config.COLOR_DARKKHAKI
+    font_size_normal = 36
+    font_size_bold_italic = 30
+    font_size_custom = 48
+
+    custom_font_name = 'Iansui.ttf'
+    custom_font_name2 = 'Poppins.ttf'
+
+    text_pos1 = [50,50]
+    text_pos2 = [225,135]
+    text_pos3 = [220,370]
+
+
+    running = True
     while running:
         running = handle_events()
         screen.fill(config.COLOR_WHITE)
 
-        draw_text(screen, 'Hello world', text_font, config.COLOR_BLACK, 220, 150)
+        # draw_text(screen, 'Hello world', text_font, config.COLOR_BLACK, 220, 150)
 
         # Calling a grid (Comment this out after you are done coding)
         grid(screen)
+
+        draw_text(screen, 'Game Over', font(font_name, font_size_custom), font_color1, text_pos3, bold=True)
+        draw_text(screen, show_name('Joshua', 'James', 'Phillips'), font(None, font_size_normal), font_color2, text_pos1)
+        draw_text(screen, show_name('Joshua', 'Phillips'), font(custom_font_name, font_size_normal), font_color3, text_pos2)
+        draw_text(screen, 'Helo fellow unga boonga', font(custom_font_name2, font_size_bold_italic), font_color4, (400, 500), italic=True)
+
         
         pygame.display.flip()
 
