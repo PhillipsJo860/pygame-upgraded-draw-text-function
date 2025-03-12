@@ -31,11 +31,16 @@ def draw_rect(screen, rect, color, thickness):
 def draw_circle(screen, center, radius, color, thickness):
     pygame.draw.circle(screen, color, center, radius, thickness)
 
-def draw_text(screen, text, font, text_col, position, anti_aliased=True, italic=False, bold=False):
-    img = font.render(text, anti_aliased, text_col)
-    screen.blit(img, position)
+def draw_text(screen, text, font, text_col, position, anti_aliased=True, italic=False, bold=False, rotation=0):
+    pygame.font.init()
     font.set_italic(italic)
     font.set_bold(bold)
+    img = font.render(text, anti_aliased, text_col)
+    if rotation != 0:
+        img = pygame.transform.rotate(img, rotation)
+    
+    text_rect = img.get_rect(center=(position))
+    screen.blit(img, text_rect.topleft)
 
 def show_name(first_name, last_name, middle_name=None):
     if middle_name:
@@ -78,7 +83,7 @@ def main():
 
         draw_text(screen, 'Game Over', font(font_name, font_size_custom), font_color1, text_pos3, bold=True)
         draw_text(screen, show_name('Joshua', 'James', 'Phillips'), font(None, font_size_normal), font_color2, text_pos1)
-        draw_text(screen, show_name('Joshua', 'Phillips'), font(custom_font_name, font_size_normal), font_color3, text_pos2)
+        draw_text(screen, show_name('Joshua', 'Phillips'), font(custom_font_name, font_size_normal), font_color3, text_pos2, rotation=50)
         draw_text(screen, 'Helo fellow unga boonga', font(custom_font_name2, font_size_bold_italic), font_color4, (400, 500), italic=True)
 
         
