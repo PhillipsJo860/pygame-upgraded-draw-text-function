@@ -21,7 +21,6 @@ def font(font_name, font_size=30):
     text_font = pygame.font.Font(font_name, font_size)
     return text_font
 
-
 def draw_line(screen, color, start_pos, end_pos, thickness):
     pygame.draw.line(screen, color, start_pos, end_pos, thickness)
 
@@ -79,7 +78,7 @@ def main():
         # draw_text(screen, 'Hello world', text_font, config.COLOR_BLACK, 220, 150)
 
         # Calling a grid (Comment this out after you are done coding)
-        grid(screen)
+        # grid(screen)
 
         draw_text(screen, 'Game Over', font(font_name, font_size_custom), font_color1, text_pos3, bold=True)
         draw_text(screen, show_name('Joshua', 'James', 'Phillips'), font(None, font_size_normal), font_color2, text_pos1)
